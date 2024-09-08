@@ -5,20 +5,10 @@ async function getMessages(count) {
     await client.connect({ host: 'localhost', port: 11300 });
     console.time('BeanstalkdBulkGet');
 
-    const func = () => {
-        return client.reserve().then((job) =>  {
-            console.log('job', job)
-            if (!job) {
-                return true;
-            }
-            return client.delete(job.id)
-        }); // Reserve the job
-    };
-
     // Array of promises to execute reserve and destroy in parallel
     const promises = [];
     for (let i = 0; i < count; i++) {
-        promises.push(client.reserveWithTimeout(100));
+        promises.push(client.reserve().then(job => client.delete(job.id)));
     }
 
     const results = await Promise.allSettled(promises);  // Execute all promises in parallel

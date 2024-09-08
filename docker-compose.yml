@@ -1,0 +1,16 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+
+  beanstalkd:
+    image: schickling/beanstalkd
+    ports:
+      - "11300:11300"
+    volumes:
+      - ./beanstalkd_data:/var/lib/beanstalkd

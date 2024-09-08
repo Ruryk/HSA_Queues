@@ -1,0 +1,10 @@
+{
+  "name": "queue-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for Redis and Beanstalkd queues",
+  "main": "index.js",
+  "dependencies": {
+    "jackd": "^2.2.2",
+    "redis": "^4.7.0"
+  }
+}
